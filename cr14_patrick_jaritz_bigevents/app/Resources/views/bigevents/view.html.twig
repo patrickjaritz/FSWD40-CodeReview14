@@ -1,0 +1,15 @@
+
+{% extends 'base.html.twig' %}
+{% block body %}
+        <a class="btn btn-default" href="/">Back to Events</a>
+        <hr>
+        <h2 class="page-header">{{bigevents.name}}</h2>
+        <ul class="list-group">
+                <li class="list-group-item">Type: {{bigevents.type}}</li>
+                <li class="list-group-item">Capacity: {{bigevents.capacity}}</li>
+                <li class="list-group-item">Date: <strong> {{bigevents.startDate|date('F j, Y, g:i a')}} </strong> </li>
+        </ul>
+        <p>
+                {{bigevents.url}}
+        </p>
+{% endblock %}
