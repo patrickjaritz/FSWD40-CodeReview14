@@ -39,18 +39,21 @@ class BigEventsController extends Controller
         ->add('address_code', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('address_city', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         ->add('url', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
-        ->add('type', ChoiceType::class, array('choices'=>array('Music'=>'Music', 'Sport'=>'Sport', 'Movie'=>'Movie', 'Theater'=>'Theater'),'attr' => array('class'=> 'form-control', 'style'=>'margin-botton:15px')))
+        ->add('type', ChoiceType::class, array('choices'=>array('Music'=>'Music', 'Sport'=>'Sport', 'Movie'=>'Movie', 'Theater'=>'Theater', 'Festival'=>'Festival', 'Opera'=>'Opera', 'Musical'=>'Musical', 'Exhibition'=>'Exhibition', 'Market'=>'Market'),'attr' => array('class'=> 'form-control', 'style'=>'margin-botton:15px')))
 
       //  ->add('description', TextareaType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
         
     ->add('start_date', DateTimeType::class, array('attr' => array('style'=>'margin-bottom:15px')))
+    ->add('end_date', DateTimeType::class, array('attr' => array('style'=>'margin-bottom:15px')))
+  
     ->add('save', SubmitType::class, array('label'=> 'Create Event', 'attr' => array('class'=> 'btn-primary', 'style'=>'margin-bottom:15px')))
         ->getForm();
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
             //fetching data
             $name = $form['name']->getData();
-            $date = $form['start_date']->getData();
+            $startdate = $form['start_date']->getData();
+            $enddate = $form['end_date']->getData();
             $image = $form['image']->getData();
             $capacity = $form['capacity']->getData();
             $email = $form['email']->getData();
@@ -63,8 +66,8 @@ class BigEventsController extends Controller
 
             $now = new\DateTime('now');
             $event->setName($name);
-            $event->setStartDate($start_date);
-            $event->setEndDate($end_date);
+            $event->setStartDate($startdate);
+            $event->setEndDate($enddate);
             $event->setImage($image);
             $event->setCapacity($capacity);
             $event->setEmail($email);
@@ -75,8 +78,8 @@ class BigEventsController extends Controller
             $event->setUrl($url);
             $event->setType($type);
 
-            $event->setDueDate($due_date);
-            $event->setCreateDate($now);
+           // $event->setDueDate($due_date);
+           // $event->setCreateDate($now);
             $em = $this->getDoctrine()->getManager();
             $em->persist($event);
             $em->flush();
@@ -122,7 +125,11 @@ return $this->render('bigevents/view.html.twig', array('bigevents' => $event));
 
                 //$event->setCreateDate($now);
             $form = $this->createFormBuilder($event)->add('name', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-botton:15px')))
-            ->add('image', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
+            ->add('url', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
+            ->add('start_date', DateTimeType::class, array('attr' => array('style'=>'margin-bottom:15px')))
+            ->add('end_date', DateTimeType::class, array('attr' => array('style'=>'margin-bottom:15px')))
+          
+            ->add('image', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))   
             ->add('capacity', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
             ->add('email', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
             ->add('phone', TextType::class, array('attr' => array('class'=> 'form-control', 'style'=>'margin-bottom:15px')))
@@ -138,7 +145,9 @@ return $this->render('bigevents/view.html.twig', array('bigevents' => $event));
             if($form->isSubmitted() && $form->isValid()){
                 //fetching data
                 $name = $form['name']->getData();
-                $date = $form['start_date']->getData();
+                $startdate = $form['start_date']->getData();
+                $enddate = $form['end_date']->getData();
+               
                 $image = $form['image']->getData();
                 $capacity = $form['capacity']->getData();
                 $email = $form['email']->getData();
@@ -155,8 +164,8 @@ return $this->render('bigevents/view.html.twig', array('bigevents' => $event));
 
             
                  $event->setName($name);
-            $event->setStartDate($start_date);
-            $event->setEndDate($end_date);
+            $event->setStartDate($startdate);
+            $event->setEndDate($enddate);
             $event->setImage($image);
             $event->setCapacity($capacity);
             $event->setEmail($email);
@@ -166,14 +175,14 @@ return $this->render('bigevents/view.html.twig', array('bigevents' => $event));
             $event->setAddressCity($address_city);
             $event->setUrl($url);
             $event->setType($type);
-                $event->setCreateDate($now);
+              //  $event->setCreateDate($now);
              
                 $em->flush();
                 $this->addFlash(
                         'notice',
                         'Event Updated'
                         );
-                return $this->redirectToRoute('bigevent_list');
+                return $this->redirectToRoute('bigevents_list');
             }
             return $this->render('bigevents/edit.html.twig', array('event' => $event, 'form' => $form->createView()));
         }

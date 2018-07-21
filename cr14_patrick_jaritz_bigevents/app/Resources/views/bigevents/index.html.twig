@@ -2,7 +2,7 @@
 {% extends 'base.html.twig' %}
 {% block body %}
        
- <h2 class="page-header"> Latest Events </h2>
+ <h2 class="page-header"> Event List </h2>
    <table class="table table-striped">
     <thead>
         <tr>
@@ -16,10 +16,9 @@
     <tbody>
         <tr>
             <th scope="row">{{event.id}}</th>
-            <td>{{event.name}}</td>
+            <td><a href="/bigevents/details/{{event.id}}">{{event.name}}</a></td>
             <td>{{event.startDate|date('F j, Y, g:i a')}}</td>
-            <td> <a href="/bigevents/details/{{event.id}}" class="btn btn-success">View</a>
-                   
+            <td>    
             <a href="/bigevents/edit/{{event.id}}" class="btn btn-default">Edit</a>
             <a href="/bigevents/delete/{{event.id}}" class="btn btn-danger">Delete</a>        
             </td>

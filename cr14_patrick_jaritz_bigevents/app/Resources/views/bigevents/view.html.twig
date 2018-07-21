@@ -4,12 +4,23 @@
         <a class="btn btn-default" href="/">Back to Events</a>
         <hr>
         <h2 class="page-header">{{bigevents.name}}</h2>
-        <ul class="list-group">
-                <li class="list-group-item">Type: {{bigevents.type}}</li>
-                <li class="list-group-item">Capacity: {{bigevents.capacity}}</li>
-                <li class="list-group-item">Date: <strong> {{bigevents.startDate|date('F j, Y, g:i a')}} </strong> </li>
-        </ul>
-        <p>
-                {{bigevents.url}}
+          <p>
+            <img src="{{bigevents.image}}" alt="image">
         </p>
+
+        <ul class="list-group">
+                <li class="list-group-item">Start Date: <strong> {{bigevents.startDate|date('F j, Y, g:i a')}} </strong> </li>
+                 <li class="list-group-item">End Date: <strong> {{bigevents.endDate|date('F j, Y, g:i a')}} </strong> </li>
+      
+                <li class="list-group-item">Type: <strong> {{bigevents.type}} </strong></li>
+                <li class="list-group-item">Capacity: <strong> {{bigevents.capacity}} </strong></li>
+            <li class="list-group-item">Email Contact: <strong> {{bigevents.email}} </strong></li>
+            <li class="list-group-item">Phone Contact: <strong> {{bigevents.phone}} </strong></li>
+            
+            <li class="list-group-item">Street: <strong> {{bigevents.addressStreet}} </strong></li>
+         <li class="list-group-item">City: <strong> {{bigevents.addressCode}} {{bigevents.addressCity}} </strong></li>
+        
+      <li class="list-group-item"><a href="{{bigevents.url}}"><strong>Event Link</strong></a></li>
+        </ul>
+      
 {% endblock %}
